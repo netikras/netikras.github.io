@@ -11,4 +11,5 @@ This should be a more tech-related blog, but there might be some off-topic posts
 - [Iptables - a beast worth training: netfilter, tables, and chains
 ](public/iptables_netfilter_basics)
 - [Iptables - a beast worth training: a firewall, a router and more](public/iptables_firewall_nat_router_and_more)
+- [16 Killed java $JVM_OPTS -jar app.jar](public/16_Killed_java)
 
