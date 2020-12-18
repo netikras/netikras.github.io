@@ -25,7 +25,7 @@ As in real life, each killer might have a different motive.
 
 - OOMK (OutOfMemoryKiller) has only 1 motive - the OS felt threatened it will not have enough memory left to breathe and summoned the OOMK to do some purging. This is the most likely cause of your outages. If you have accesses, youcan confirm this theory by examining the last entries in the `dmesg` output. If you see the 'Killed process 4832 (java)' entry there along with some memory layout tables then you've got your killer.
 
-## OOMKiller - the Grim Reaper of the Kernelland
+## OOMKiller - the Grim Reaper from the Kernelland
 
 ### The OS (Operating System)
 It's the _magic_ that runs in your computer. OS is the interaction layer between the computer's input devices and the output devices. When you type a letter 'a' on your keyboard, it's up to the OS to decide what happens on your screen, CD-ROM and your speakers. One might argue it's up to the application that's open and one would be also correct. Thing is, the term OS is so vast that it includes pretty much all the software: applications, drivers, the terminal, installers and so on. There are certain types of software in your computer that are not a part of the OS (microcode/firmware, BIOS/EFI and similar). The OS is divided into 2 main parts: Kernel and user space.
