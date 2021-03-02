@@ -161,6 +161,24 @@ We know our ISP assigns us an IP address. Some get a static one (the same IP for
 This applies to new connections originating from the internet, and it does not apply to connections made from within the lan to the internet, i.e. if you connect to google.com and send a HTTP request - you will still receive a response to your request. This is all thanks to connection tracking built in to your router.
 
 ## PAT router
+Just like NAT, PAT (Port Address Translation) also does some translation between public and local spaces.
+
+Consider sockets. A socket is a triplet of 
+- protocol (tcp/udp/icmp/...)
+- IP address
+- port
+
+A socket represents either end of a connection: either local or remote. A socket is a cup in a cups-and-string-telephone. You speak to one cup (socket), the data is transferred through the wire/thread, and it's emitted through the cup (socket) on the other end. In a connection you have one cup and google has another. Each socket in either of the devices must have a unique triplet. That is, if you're sending a http request to google, your Laptop will create a socket [216.58.208.206:443:tcp], and google server will create a socket [<your_external_ip>:<your_port_number>:tcp]. Now NAT takes care of the <your_external_ip> part. What's with the <your_port_number>?
+
+When you create a TCP socket for HTTPS communication, your OS (Windows/Linux/MacOS/other) will assign a port 443 as remote port number and any random number between 0 and 65535 (in reality the range is a lot narrower, something like 49152 to 65535) as local port. This says "I will be sending data to port 443 and expecting to receive data at port <random_number>".
+
+Consider the same topology in the ascii-picture above. You have a PC, Laptop and SmartTV governed by RouterB. If you are sending a packet to google from your Laptop, RouterB might apply NAT rules and rewrite your packet's ip.src_addr to your router's external IP address. It will leave the same ip.src_port that your laptop has set. Then, it will forward your request to RouterC, which, if it's NAT-enabled, will do the same thing. And this continues on and on until your packet reaches the google server you were aiming for. The remote server creates a socket using TCP as protocol, your public IP address for IP address and your Laptop's assigned private (local) port number for port number. It's all nice when you only use laptop for communications with google. You might not even notice anything wrong if you used all the 3 devices simultaneously: laptop, PC and SmartTV. However, what would happen if you had 70'000 devices in your network, sharing the same public IP address? They would all NAT to the same public IP address. And they would all generate a private port number in a range [0;65535]. There are 70'000 devices. Naturally, some of the private port numbers will overlap. And this introduces a problem - several devices will be using the same protocol, IP address and port number to connect to google.com. Google server (or firewall or LB or any other device in the way) will get confused: "hey, I already have this triplet in an already established connection. I cannot register another, identical to that one! ECONNREFUSED"
+
+The problem is that several devices in the same network might generate the same random private port number. The larger the private network, the higher the probability of private port number collisions. This might be a problem in your network as well, not neccessarily in a remote server: if your internal routers are NATting and governing large networks, your packet might find a collision in either of your network devices too, e.g. routers, firewalls, ..., because your network devices are also tracking connections (sockets) internally, to maintain conversations.
+
+A solution is PAT. A PAT-capable router will generate its own private port number for each connection originating in your network and will rewrite the TCP/UDP packet's src_port with it and send it out. It will also keep the mapping between the original port number and the newly generated port number for incomming packets in the same connection and rewrite the tcp.dst_port accordingly. This way you make sure that even though your servers happen to generate the same private port number, the outter world will not see collisions, because PAT router will make sure they are unique.
+
+## Port Forwarding
 Now, what if you want to allow google.com to connect to your Laptop or SmartTV? What if you are having trouble using GMail and you call to google and ask aa technician to connect to your Laptop using RDP (Remote Desktop (Windows))? You will give them your public IP address - that's for sure. But how does your external router knows that it should redirect the google technitian's RDP request to yor laptop, and not to your SmartTV or PC or, perhaps, drop the packet? This is where OSI-4 features of a router come in handy.
 
 Most routers can also operate in OSI-4, i.e. they can interpret TCP, UDP, other OSI-4 packets (segments). TCP and UDP are wrapped inside IP packets, and they also have a protocol-speciffic identifier. Picture it like this:
@@ -198,5 +216,7 @@ This means, that your friend can go to 35.36.37.38:80/tcp, and it will be forwar
 - http://wiki.wlug.org.nz/SourceBasedRouting
 - https://www.coursehero.com/file/p12iiks/returns-to-the-router-it-uses-the-connection-tracking-data-it-stored-during-the/
 - https://www.wikiwand.com/en/Default_gateway
+- https://www.ciscozine.com/nat-and-pat-a-complete-explanation/
+- https://www.sciencedirect.com/topics/computer-science/registered-port#:~:text=Port%20numbers%20can%20run%20from,application%20processes%20on%20other%20hosts.
 
 > Written with [StackEdit](https://stackedit.io/).
