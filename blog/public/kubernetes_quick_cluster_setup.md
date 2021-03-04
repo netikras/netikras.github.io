@@ -58,8 +58,7 @@ sudo systemctl status docker
 
 [kubernetes.io link](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
-<details>
-  <summary>generic linux</summary>
+##### generic linux
   
 ```bash
 
@@ -71,11 +70,9 @@ kubectl version --client
 
 ```
 
-</details>
+---
 
-
-<details>
-  <summary>ubuntu</summary>
+##### ubuntu
   
 ```bash
 
@@ -88,11 +85,9 @@ kubectl version --client
 
 ```
 
-</details>
+---
 
-
-<details>
-  <summary>RH/CentOS</summary>
+##### RH/CentOS
   
 ```bash
 
@@ -110,13 +105,10 @@ kubectl version --client
 
 ```
 
-</details>
-
 ### kubeadm
 [kubernetes.io link](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 
-<details>
-<summary>generic linux</summary>
+##### generic linux
 
 Install CNI plugins (required for most pod network):
 
@@ -164,7 +156,7 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 
 ```
 
-Enable and start  `kubelet`:
+Enable and start `kubelet`:
 
 ```bash
 
@@ -172,11 +164,9 @@ sudo systemctl enable --now kubelet
 
 ```
 
-</details>
-
 ---
-<details>
-<summary>Ubuntu</summary>
+
+##### Ubuntu
 
 ```bash
 
@@ -193,12 +183,9 @@ sudo apt-mark hold kubelet kubeadm kubectl
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
 
-</details>
-
 ---
 
-<details>
-<summary>RH/CentOS</summary>
+##### RH/CentOS
 
 ```bash
 
@@ -231,8 +218,7 @@ sudo systemctl enable --now kubelet
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
 
-</details>
-
+---
 
 ## Disable SWAP
 
@@ -311,6 +297,8 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 
 ```
 
+---
+
 ### Weave
 [link](https://www.weave.works/blog/weave-net-kubernetes-integration/)
 
@@ -329,6 +317,8 @@ Kubernetes versions up to 1.5:
 kubectl apply -f https://git.io/weave-kube
 
 ```
+
+---
 
 ### Calico
 [link](https://docs.projectcalico.org/getting-started/kubernetes/quickstart)
@@ -394,6 +384,9 @@ kubectl apply -f https://git.io/weave-kube
 	<your-hostname>   Ready    master   52m   v1.12.2   10.128.0.28   <none>        Ubuntu 18.04.1 LTS   4.15.0-1023-gcp   docker://18.6.1
 	
 	```
+
+---
+    
     
 ## Install Ingress Controller (nginx)
 [link](https://kubernetes.github.io/ingress-nginx/deploy/)
@@ -429,8 +422,7 @@ Use this IP to query your ingresses
 ## Install helm
 [link](https://helm.sh/docs/intro/install/)
 
-<details>
-<summary>generic linux</summary>
+##### generic linux
 
 ```bash
 
@@ -440,10 +432,9 @@ chmod 700 get_helm.sh
 
 ```
 
-</details>
+---
 
-<details>
-<summary>ubuntu</summary>
+##### ubuntu
 
 ```bash
 
@@ -455,7 +446,7 @@ sudo apt-get install helm
 
 ```
 
-</details>
+---
 
 ## Done
 Now deploy your pods, services and ingresses and access them through the NodePort endpoint's IP:port.
