@@ -11,7 +11,7 @@ Want to quickly spin up your own Kubernetes cluster? Here's how.
 - kubectl get nodes
 - install network fabric, e.g. weave
 - install nginx controller
-- kubectl -n ingress-nginx get svc | grep NodePort
+- get ingess controller's Endpoint
 - install helm
 
 This is what it looks like
@@ -63,6 +63,7 @@ sudo chown root:root /usr/bin/kubectl
 sudo chmod 0755 /usr/bin/kubectl
 kubectl version --client
 ```
+
 </details>
 
 
@@ -77,6 +78,7 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 kubectl version --client
 ```
+
 </details>
 
 
@@ -96,6 +98,7 @@ EOF
 sudo yum install -y kubectl
 kubectl version --client
 ```
+
 </details>
 
 ### kubeadm
@@ -171,11 +174,10 @@ sudo apt-mark hold kubelet kubeadm kubectl
 ```
 
 The kubelet is now restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
+
 </details>
 
 ---
-
-</details>
 
 <details>
 <summary>RH/CentOS</summary>
@@ -211,8 +213,6 @@ The kubelet is now restarting every few seconds, as it waits in a crashloop for 
 
 </details>
 
-
-</details>
 
 ## Disable SWAP
 ```bash
@@ -356,6 +356,7 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scr
 chmod 700 get_helm.sh
 ./get_helm.sh
 ```
+
 </details>
 
 <details>
@@ -368,6 +369,7 @@ echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt
 sudo apt-get update
 sudo apt-get install helm
 ```
+
 </details>
 
 ## Done
