@@ -8,10 +8,10 @@ This should be a more tech-related blog, but there might be some off-topic posts
 - [SSH - a tool for IT engineers](public/ssh_a_tool_for_engineers)
 - [Computer networks. The basics: OSI and devices
 ](/public/computer_networks_the_basics)
-- [Computer networks. Routing](public/computer_networks_routing.md)
+- [Computer networks. Routing](public/computer_networks_routing)
 - [Iptables - a beast worth training: netfilter, tables, and chains
 ](public/iptables_netfilter_basics)
 - [Iptables - a beast worth training: a firewall, a router and more](public/iptables_firewall_nat_router_and_more)
 - [16 Killed java $JVM_OPTS -jar app.jar](public/16_Killed_java)
-- [Kubernetes. Quickly set up your own cluster](public/kubernetes_quick_cluster_setup.md)
+- [Kubernetes. Quickly set up your own cluster](public/kubernetes_quick_cluster_setup)
 
