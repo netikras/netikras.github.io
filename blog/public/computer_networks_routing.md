@@ -116,11 +116,20 @@ Let's analyze this as a set of examples:
 - PC sends a message to the Application. 192.168.2.2 and 192.168.1.2 are on different networks, so PC needs a gate to the other network. Gateway 192.168.2.1 (RouterB) will relay that message to its parent network - to the RouterC. RouterC doesn't know anything about the 192.168.1.0 network, so it will also send that message to its gateway. If the gateway above RouterC is your ISP, chances are they are rejecting all the requests with ip.src_add in private IP address ranges (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16), so eventually you will get a Network Unreachable ICMP response. If, however, RouterC gateway is another router in home network, it is possible it might know where 192.168.1.2 is, but in this case it will most likely be some other device than we expected, i.e. not the Application server from our example topology.
 
 The application network is isolated from the home appliances' network, so the PC cannot send packets to the Application and vice versa. If we wanted to make Application accessible from the appliances' network, we should configure RouterC and add a custom rule to the routing table, which should say:
+
 > if the ip.dst_addr is in a subnet 192.168.1.0/24, route that traffic to the hop with ip 192.168.0.2
 
 or a more strict rule
 
 > if the ip.dst_addr is in a subnet 192.168.1.2/32, route that traffic to the hop with ip 192.168.0.2
+
+That would be rather enough for a NAT-enabled router. However, if we don't have NATting available, such a setup would only allow TCP traffic from PC to Application, and the Application would not be able to reply. Why? There's no route for Application to reach PC! Let's add another route:
+
+> if the ip.dst_addr is in a subnet 192.168.2.2/32, route that traffic to the hop with ip 192.168.0.3
+
+Now the IP packets that originate in the Application server and are sent to the PC IP will be relayed to the router that manages the network the PC is in.
+
+Why do we need this? We wouldn't if we were communicating in UDP. UDP doesn't have any echo. But TCP or ICMP, on the other hand, does. "echo" in this context means that any message sent to one direction will cause another message sent back. TCP is a verbose protocol and involves lots, LOTS of message exchanges back and forth. It requires a bidirectional communication channel to open a connection alone, not to mention the actual data exchange.
 
 In this case PC's packet, once it reached RouterC, will be routed to the RouterA. And we know RouterA knows how to find 192.168.1.2. We have now successfully joined two isolated networks.
 
