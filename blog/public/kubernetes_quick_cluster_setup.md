@@ -306,7 +306,7 @@ Kubernetes versions 1.6 and above:
 
 ```bash
 
-kubectl apply -f "[https://cloud.weave.works/k8s/net?k8s-version=$(kubectl](https://www.google.com/url?q=https://cloud.weave.works/k8s/net?k8s-version%3D$(kubectl&sa=D&ust=1524760785241000&usg=AFQjCNF4lxXiYNW0iq1-mOap4Wr7Ei9-YA) version | base64 | tr -d '\n')"
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
 ```
 
