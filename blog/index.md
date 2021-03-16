@@ -14,4 +14,5 @@ This should be a more tech-related blog, but there might be some off-topic posts
 - [Iptables - a beast worth training: a firewall, a router and more](public/iptables_firewall_nat_router_and_more)
 - [16 Killed java $JVM_OPTS -jar app.jar](public/16_Killed_java)
 - [Kubernetes. Quickly set up your own cluster](public/kubernetes_quick_cluster_setup)
+- [Kubernetes on VPN (Wireguard)](public/Kubernetes_on_vpn_wireguard)
 
