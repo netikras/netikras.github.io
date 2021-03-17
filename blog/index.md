@@ -15,4 +15,5 @@ This should be a more tech-related blog, but there might be some off-topic posts
 - [16 Killed java $JVM_OPTS -jar app.jar](public/16_Killed_java)
 - [Kubernetes. Quickly set up your own cluster](public/kubernetes_quick_cluster_setup)
 - [Kubernetes on VPN (Wireguard)](public/Kubernetes_on_vpn_wireguard)
+- [Performance and security testing. Why bother?](public/performance_and_security_testing_why_bother)
 
